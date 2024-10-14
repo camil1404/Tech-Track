@@ -58,6 +58,20 @@ const data = [
 // function transformArrayOfObj() returns an Array of objects
 function transformArrOfObj(myData) {
   /* Write your functionality here and return the result */
+  const result = [];
+  myData.forEach((person) => {
+    const transformedPerson = {
+      name:
+        person.name.charAt(0).toUpperCase() +
+        person.name.slice(1).toLowerCase(),
+      residence:
+        person.residence.charAt(0).toUpperCase() +
+        person.residence.slice(1).toLowerCase(),
+      age: Number(person.age),
+      employer: person.work.employer,
+    };
+    result.push(transformedPerson);
+  });
+  return result;
 }
-
 console.log(transformArrOfObj(data));
