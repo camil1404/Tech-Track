@@ -1279,34 +1279,27 @@ let southAsianMaxLifeExpectancy;
 // attribute population is an integer,
 // the values of attributes income and lifeExpectancy show 2 decimals.
 // the name of attribute income is changed to avgIncome
-function normalizeCountry(myCountry) {
-  return {
-    name: myCountry.name,
-    region: myCountry.region,
-    population: Math.round(myCountry.population), // Format population to an integer
-    avgIncome: myCountry.income.toFixed(2), // Format income to 2 decimals
-    lifeExpectancy: myCountry.lifeExpectancy.toFixed(2), // Format life expectancy to 2 decimals
-  };
-}
-
-// Format and filter South Asian countries
 southAsianCountries = countries
-  .filter((country) => country.region === "South Asia")
-  .map(normalizeCountry);
+  .filter((c) => c.region === "South Asia")
+  .map((c) => ({
+    name: c.name,
+    region: c.region,
+    population: Math.round(c.population),
+    avgIncome: c.income.toFixed(2),
+    lifeExpectancy: c.lifeExpectancy.toFixed(2),
+  }));
 southAsianPopulation = southAsianCountries.reduce(
-  (total, country) => total + country.population,
+  (t, c) => t + c.population,
   0
 );
-
-// Calculate the maximum life expectancy in South Asia
 southAsianMaxLifeExpectancy = Math.max(
-  ...southAsianCountries.map((country) => Number(country.lifeExpectancy))
+  ...southAsianCountries.map((c) => Number(c.lifeExpectancy))
 );
-
-// Log the results
-console.log("South Asian Countries:", southAsianCountries);
-console.log("Total Population of South Asia:", southAsianPopulation);
 console.log(
+  "South Asian Countries:",
+  southAsianCountries,
+  "Total Population of South Asia:",
+  southAsianPopulation,
   "Maximum Life Expectancy in South Asia:",
   southAsianMaxLifeExpectancy
 );
